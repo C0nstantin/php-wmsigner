@@ -102,8 +102,7 @@ class Signer
      *
      */
     private function tryReadEncrypted($key,$wmid,$keyPassword)
-    {   echo $keyPassword;
-        $keyData = unpack('vreserved/vsignFlag/a16hash/Vlength/a*buffer', $key);
+    {   $keyData = unpack('vreserved/vsignFlag/a16hash/Vlength/a*buffer', $key);
         $keyData['buffer'] = self::encryptKey($keyData['buffer'], $wmid, $keyPassword);
         if (!self::verifyHash($keyData)) {
             throw new \Exception('Hash check failed. Key file seems to be corrupted.');
